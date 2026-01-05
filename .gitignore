@@ -1,0 +1,50 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.maven.metadata.xml
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+*.class
+
+# Eclipse
+.classpath
+.project
+.settings/
+bin/
+.springBeans
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+log4j.log
+
+# Database
+*.db
+*.sqlite
+*.h2.db
+
+# IDE
+*.swp
+*.swo
+*~
+.env
+.env.local
