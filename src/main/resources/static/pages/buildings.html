@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Корпусы</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- Toggle -->
+  <button id="sidebarToggle" class="sidebar-toggle" aria-expanded="false" aria-controls="sidebar">☰ Меню</button>
+
+  <!-- Сайдбар -->
+  <aside id="sidebar" class="sidebar" role="navigation" aria-hidden="true">
+    <nav class="sidebar-nav" aria-label="Главная навигация">
+      <ul>
+        <li><a href="/index.html" class="sidebar-btn" data-target="home">Главная</a></li>
+        <li><a href="/pages/attendance.html" class="sidebar-btn" data-target="attendance">Посещаемость</a></li>
+        <li><a href="/pages/students.html" class="sidebar-btn" data-target="students">Студенты</a></li>
+        <li><a href="/pages/groups.html" class="sidebar-btn" data-target="groups">Группы</a></li>
+        <li><a href="/pages/teachers.html" class="sidebar-btn" data-target="teachers">Преподаватели</a></li>
+        <li><a href="/pages/lesson-types.html" class="sidebar-btn" data-target="lesson-types">Типы занятий</a></li>
+        <li><a href="/pages/buildings.html" class="sidebar-btn" data-target="buildings">Корпусы</a></li>
+        <li><a href="/pages/classrooms.html" class="sidebar-btn" data-target="classrooms">Аудитории</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Оверлей -->
+  <div id="overlay" class="overlay" tabindex="-1" hidden></div>
+
+  <!-- Контент -->
+  <main>
+    <h1>Корпусы</h1>
+    <div class="card">
+      <p>Страница управления корпусами учреждения. Здесь вы можете добавлять и управлять информацией о корпусах.</p>
+    </div>
+  </main>
+
+  <script src="/js/sidebar.js"></script>
+</body>
+</html>
