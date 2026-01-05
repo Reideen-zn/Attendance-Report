@@ -4,7 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Система учета посещаемости</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/variables.css">
+  <link rel="stylesheet" href="/css/sidebar.css">
+  <link rel="stylesheet" href="/css/table.css">
+  <link rel="stylesheet" href="/css/buttons.css">
+  <link rel="stylesheet" href="/css/modal.css">
+  <link rel="stylesheet" href="/css/forms.css">
 </head>
 <body>
   <!-- Toggle -->
@@ -30,6 +35,18 @@
   <!-- Оверлей -->
   <div id="overlay" class="overlay" tabindex="-1" hidden></div>
 
+  <!-- Модальное окно -->
+  <div id="itemModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header" id="modalHeader">Добавить новую запись</div>
+      <form id="itemForm"></form>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">Отмена</button>
+        <button class="btn btn-primary" onclick="saveItem()">Сохранить</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Контент -->
   <main>
     <h1>Система учета посещаемости</h1>
@@ -38,6 +55,12 @@
     </div>
   </main>
 
+  <script src="/js/api.js"></script>
+  <script src="/js/modal.js"></script>
+  <script src="/js/table.js"></script>
+  <script src="/js/filters.js"></script>
+  <script src="/js/crud.js"></script>
   <script src="/js/sidebar.js"></script>
+  <script src="/js/init.js"></script>
 </body>
 </html>

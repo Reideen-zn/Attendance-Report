@@ -1,0 +1,55 @@
+/* Кнопки */
+.btn{
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 160ms;
+}
+
+.btn-primary{
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover{
+  background: #1f4f8f;
+}
+
+.btn-secondary{
+  background: #ddd;
+  color: #333;
+  margin-left: 8px;
+}
+
+.btn-secondary:hover{
+  background: #ccc;
+}
+
+.btn-danger{
+  background: #fee;
+  color: #c33;
+}
+
+.btn-danger:hover{
+  background: #fdd;
+}
+
+.action-icons{
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn{
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 8px;
+  transition: opacity 160ms;
+}
+
+.icon-btn:hover{
+  opacity: 0.7;
+}

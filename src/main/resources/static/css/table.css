@@ -1,0 +1,41 @@
+/* Таблицы */
+table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+thead{
+  background: rgba(43,108,176,0.1);
+  border-bottom: 2px solid var(--accent);
+}
+
+th{
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+td{
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover{
+  background: rgba(43,108,176,0.05);
+}
+
+.loading{
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+
+.error{
+  background: #fee;
+  color: #c33;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 16px 0;
+}

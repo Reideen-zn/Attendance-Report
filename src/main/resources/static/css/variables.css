@@ -1,0 +1,32 @@
+:root{
+  --sidebar-width: 260px;
+  --accent: #2b6cb0;
+  --bg: #ffffff;
+  --text: #222;
+  --shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+
+body{
+  margin: 0;
+  font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--text);
+  background: #f6f8fb;
+  min-height: 100vh;
+}
+
+main{
+  padding: 48px 24px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.card{
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+}
+
+@media (max-width: 600px){
+  main{ padding: 48px 12px; }
+}
