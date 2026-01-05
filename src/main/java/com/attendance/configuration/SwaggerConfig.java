@@ -27,8 +27,8 @@ public class SwaggerConfig {
 
     private License apiLicense() {
         return new License()
-                .name("MIT License")
-                .url("https://opensource.org/licenses/mit-license.php");
+                .name("Creative Commons Attribution-NonCommercial 4.0")
+                .url("https://creativecommons.org/licenses/by-nc/4.0/");
     }
 
     private Contact contact() {

@@ -72,7 +72,7 @@
   background: rgba(43,108,176,0.15);
   color: var(--accent);
   font-weight: 600;
-  padding-left: 11px;
+  padding-right: 0px;
 }
 
 /* Оверлей */
