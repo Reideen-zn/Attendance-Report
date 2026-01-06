@@ -27,6 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
   } else if(path.includes('/pages/disciplines.html')) {
     endpoint = '/disciplines';
     tableSelector = '#disciplinesTable';
+  } else if(path.includes('/pages/lesson-times.html')) {
+    endpoint = '/lesson-times';
+    tableSelector = '#lessonTimesTable';
   }
   
   if(endpoint && tableSelector) {

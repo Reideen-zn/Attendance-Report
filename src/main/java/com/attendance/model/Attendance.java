@@ -5,9 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 @Entity
 @Table(name = "attendance")
 @Data
@@ -47,10 +44,11 @@ public class Attendance {
     private Boolean present;
     
     @Column(nullable = false)
-    private LocalDate attendanceDate;
+    private String attendanceDate;
     
-    @Column(nullable = false)
-    private LocalTime attendanceTime;
+    @ManyToOne
+    @JoinColumn(name = "attendance_time_id", nullable = false)
+    private LessonTime attendanceTime;
     
     @Column(nullable = false)
     private Integer missedHours = 2;

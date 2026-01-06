@@ -69,6 +69,13 @@ function buildFormHTML(endpoint, item = null) {
         <input type="text" id="name" placeholder="Введите название" value="${item?.name || ''}">
       </div>
     `;
+  } else if(endpoint === '/lesson-times') {
+    return `
+      <div class="form-group">
+        <label>Время занятия</label>
+        <input type="text" id="time" placeholder="Введите время (например, 11:40-13:15)" value="${item?.time || ''}">
+      </div>
+    `;
   }
   return '';
 }
@@ -97,6 +104,8 @@ function buildItemData(endpoint) {
     };
   } else if(endpoint === '/disciplines') {
     data = { name: document.getElementById('name').value };
+  } else if(endpoint === '/lesson-times') {
+    data = { time: document.getElementById('time').value };
   }
   
   return data;

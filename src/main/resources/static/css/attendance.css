@@ -1,0 +1,201 @@
+/* Посещаемость */
+.attendance-buttons {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 12px;
+}
+
+.attendance-filters {
+  background-color: var(--bg-card);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  border: 1px solid #e0e0e0;
+}
+
+.attendance-table-container {
+  margin-top: 20px;
+}
+
+.attendance-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.attendance-matrix thead {
+  background: rgba(43,108,176,0.1);
+  border-bottom: 2px solid var(--accent);
+}
+
+.attendance-matrix th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.attendance-matrix td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.attendance-matrix tbody tr:hover {
+  background: rgba(43,108,176,0.05);
+}
+
+.attendance-cell {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid #999;
+}
+
+.attendance-cell.present-false {
+  background-color: #d3d3d3;
+  border-color: #999;
+}
+
+.attendance-cell.present-true {
+  background-color: #4caf50;
+  border-color: #45a049;
+}
+
+.attendance-cell:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.attendance-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Отчет */
+.report-date-range {
+  background-color: var(--bg-card);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  border: 1px solid #e0e0e0;
+  align-items: end;
+}
+
+.report-date-range .form-group {
+  margin-bottom: 0;
+}
+
+.report-date-range input[type="date"] {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.report-date-range button {
+  height: 38px;
+  align-self: flex-end;
+}
+
+.report-table-container {
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+.report-matrix {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  min-width: 600px;
+}
+
+.report-matrix thead {
+  background: rgba(43,108,176,0.1);
+  border-bottom: 2px solid var(--accent);
+  position: sticky;
+  top: 0;
+}
+
+.report-matrix th {
+  padding: 12px 8px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--accent);
+  min-width: 80px;
+}
+
+.report-matrix th:first-child {
+  text-align: left;
+  min-width: 150px;
+  position: sticky;
+  left: 0;
+  background: rgba(43,108,176,0.1);
+  z-index: 1;
+}
+
+.report-matrix td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.report-matrix td.student-name {
+  text-align: left;
+  font-weight: 500;
+  position: sticky;
+  left: 0;
+  background: rgba(43,108,176,0.05);
+  z-index: 1;
+  border-right: 2px solid #eee;
+}
+
+.report-matrix tbody tr:hover td.student-name {
+  background: rgba(43,108,176,0.08);
+}
+
+.report-matrix tbody tr:hover td {
+  background: rgba(43,108,176,0.05);
+}
+
+.attendance-report-cell {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  border: 2px solid #999;
+}
+
+.attendance-report-cell.no-data {
+  background-color: #d3d3d3;
+  border-color: #999;
+}
+
+.attendance-report-cell.present-true {
+  background-color: #4caf50;
+  border-color: #45a049;
+}
+
+.attendance-report-cell.present-false {
+  background-color: #f44336;
+  border-color: #da190b;
+}

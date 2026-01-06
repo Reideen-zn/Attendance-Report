@@ -113,6 +113,17 @@ function createTableRow(item, endpoint) {
         </div>
       </td>
     `;
+  } else if(endpoint === '/lesson-times') {
+    row.innerHTML = `
+      <td>${item.id}</td>
+      <td>${item.time}</td>
+      <td>
+        <div class="action-icons">
+          <button class="icon-btn" onclick="openEditModal('/lesson-times', ${item.id})">✏️</button>
+          <button class="icon-btn" onclick="deleteItemConfirm('/lesson-times', ${item.id})">🗑️</button>
+        </div>
+      </td>
+    `;
   }
   
   return row;
@@ -126,7 +137,8 @@ function getTableSelector(endpoint) {
     '/lesson-types': '#lessonTypesTable',
     '/buildings': '#buildingsTable',
     '/classrooms': '#classroomsTable',
-    '/disciplines': '#disciplinesTable'
+    '/disciplines': '#disciplinesTable',
+    '/lesson-times': '#lessonTimesTable'
   };
   return map[endpoint] || '';
 }

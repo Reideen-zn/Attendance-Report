@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/buttons.css">
   <link rel="stylesheet" href="/css/modal.css">
   <link rel="stylesheet" href="/css/forms.css">
+  <link rel="stylesheet" href="/css/attendance.css">
 </head>
 <body>
   <!-- Toggle -->
@@ -26,6 +27,7 @@
         <li><a href="/pages/teachers.html" class="sidebar-btn" data-target="teachers">Преподаватели</a></li>
         <li><a href="/pages/disciplines.html" class="sidebar-btn" data-target="disciplines">Дисциплины</a></li>
         <li><a href="/pages/lesson-types.html" class="sidebar-btn" data-target="lesson-types">Типы занятий</a></li>
+        <li><a href="/pages/lesson-times.html" class="sidebar-btn" data-target="lesson-times">Время занятий</a></li>
         <li><a href="/pages/buildings.html" class="sidebar-btn" data-target="buildings">Корпусы</a></li>
         <li><a href="/pages/classrooms.html" class="sidebar-btn" data-target="classrooms">Аудитории</a></li>
       </ul>
@@ -51,7 +53,12 @@
   <main>
     <h1>Посещаемость</h1>
     <div class="card">
-      <p>Страница учета посещаемости. Здесь вы можете отмечать посещаемость студентов.</p>
+      <div class="attendance-buttons">
+        <button class="btn btn-primary" onclick="showAttendanceFilters()">Отметить присутствующих</button>
+        <button class="btn btn-secondary" onclick="showReportDateRange()">Отчет</button>
+      </div>
+      <div id="attendanceFiltersContainer"></div>
+      <div id="attendanceTableContainer"></div>
     </div>
   </main>
 
@@ -62,5 +69,6 @@
   <script src="/js/crud.js"></script>
   <script src="/js/sidebar.js"></script>
   <script src="/js/init.js"></script>
+  <script src="/js/attendance.js"></script>
 </body>
 </html>
