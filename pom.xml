@@ -59,6 +59,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- POI-TL для работы с Word шаблонами -->
+        <dependency>
+            <groupId>com.deepoove</groupId>
+            <artifactId>poi-tl</artifactId>
+            <version>1.12.1</version>
+        </dependency>
+
         <!-- Spring Boot Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

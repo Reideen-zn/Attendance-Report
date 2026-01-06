@@ -8,6 +8,10 @@ function buildFormHTML(endpoint, item = null) {
         <label>Название группы</label>
         <input type="text" id="name" placeholder="Введите название" value="${item?.name || ''}">
       </div>
+      <div class="form-group">
+        <label>Курс</label>
+        <input type="number" id="course" placeholder="Введите номер курса" min="1" value="${item?.course || ''}">
+      </div>
     `;
   } else if(endpoint === '/students') {
     const groupId = item?.group?.id || '';
@@ -84,7 +88,10 @@ function buildItemData(endpoint) {
   let data = {};
   
   if(endpoint === '/groups') {
-    data = { name: document.getElementById('name').value };
+    data = { 
+      name: document.getElementById('name').value,
+      course: parseInt(document.getElementById('course').value) 
+    };
   } else if(endpoint === '/students') {
     data = {
       lastName: document.getElementById('lastName').value,

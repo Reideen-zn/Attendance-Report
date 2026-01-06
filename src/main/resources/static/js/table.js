@@ -37,6 +37,7 @@ function createTableRow(item, endpoint) {
     row.innerHTML = `
       <td>${item.id}</td>
       <td>${item.name}</td>
+      <td>${item.course}</td>
       <td>
         <div class="action-icons">
           <button class="icon-btn" onclick="openEditModal('/groups', ${item.id})">✏️</button>

@@ -552,3 +552,237 @@ function refreshReportTableIfReady() {
     showReportTable();
   }
 }
+
+// === ОТЧЕТ ПО ПРОПУСКАМ ===
+function showReportMissesDateRange() {
+  const dateRangeHTML = `
+    <div class="report-date-range">
+      <div class="form-group">
+        <label>Дата с</label>
+        <input type="date" id="reportMissesDateFrom" onchange="refreshReportMissesIfReady()">
+      </div>
+      <div class="form-group">
+        <label>Дата по</label>
+        <input type="date" id="reportMissesDateTo" onchange="refreshReportMissesIfReady()">
+      </div>
+      <div class="form-group">
+        <label>Группа (необязательно)</label>
+        <select id="reportMissesGroupFilter" onchange="refreshReportMissesIfReady()">
+          <option value="">Все группы</option>
+        </select>
+      </div>
+      <button class="btn btn-secondary" onclick="clearReportFilters()">Отмена</button>
+      <button class="btn btn-primary" id="exportWordBtn" style="display: none;" onclick="exportMissesReportToWord()">Экспортировать в Word</button>
+    </div>
+  `;
+  
+  const filtersContainer = document.getElementById('attendanceFiltersContainer');
+  if(filtersContainer) {
+    filtersContainer.innerHTML = dateRangeHTML;
+    loadReportMissesFilterOptions();
+  }
+  
+  document.getElementById('attendanceTableContainer').innerHTML = '';
+}
+
+async function loadReportMissesFilterOptions() {
+  try {
+    const groups = await getAll('/groups');
+    populateSelect('reportMissesGroupFilter', groups, 'name');
+  } catch(error) {
+    console.error('Ошибка при загрузке групп:', error);
+  }
+}
+
+async function showReportMissesTable() {
+  const dateFromStr = document.getElementById('reportMissesDateFrom').value;
+  const dateToStr = document.getElementById('reportMissesDateTo').value;
+  const selectedGroupId = document.getElementById('reportMissesGroupFilter').value;
+  
+  if(!dateFromStr || !dateToStr) {
+    alert('Выберите диапазон дат');
+    return;
+  }
+  
+  try {
+    const allAttendance = await getAll('/attendance');
+    let students = await getAll('/students');
+    
+    // Фильтруем студентов по группе если выбрана
+    if(selectedGroupId) {
+      students = students.filter(s => s.group && s.group.id == selectedGroupId);
+    }
+    
+    // Фильтруем записи по датам и наличию пропусков
+    const dateFrom = parseDate(dateFromStr);
+    const dateTo = parseDate(dateToStr);
+    
+    const missedRecords = {};
+    
+    allAttendance.forEach(record => {
+      if(!record.present) { // Только пропуски (present = false)
+        const recordDate = parseDateFromString(record.attendanceDate);
+        
+        if(recordDate >= dateFrom && recordDate <= dateTo) {
+          if(!missedRecords[record.student.id]) {
+            missedRecords[record.student.id] = [];
+          }
+          missedRecords[record.student.id].push(record);
+        }
+      }
+    });
+    
+    // Генерируем таблицу
+    let tableBodyRows = '';
+    
+    students.forEach(student => {
+      if(missedRecords[student.id] && missedRecords[student.id].length > 0) {
+        const studentMisses = missedRecords[student.id];
+        let totalMissedHours = 0;
+        
+        // Строки с пропусками студента
+        studentMisses.forEach((record, index) => {
+          totalMissedHours += record.missedHours || 0;
+          
+          const lessonInfo = `${record.lessonType.name}, ${record.classroom.number}, ${record.building.name}`;
+          
+          // ФИО и группа только в первой строке
+          const nameCell = index === 0 ? `<td>${student.lastName} ${student.firstName}</td>` : '<td></td>';
+          const groupCell = index === 0 ? `<td>${student.group.name}</td>` : '<td></td>';
+          
+          tableBodyRows += `
+            <tr>
+              ${nameCell}
+              ${groupCell}
+              <td>${record.discipline.name}</td>
+              <td>${lessonInfo}</td>
+              <td>${record.attendanceDate}</td>
+              <td>${record.attendanceTime.time}</td>
+              <td>${record.missedHours}</td>
+            </tr>
+          `;
+        });
+        
+        // Строка итога для студента
+        tableBodyRows += `
+          <tr class="student-total">
+            <td colspan="6" style="text-align: right; font-weight: 600;">Всего пропущено часов:</td>
+            <td style="font-weight: 600;">${totalMissedHours}</td>
+          </tr>
+        `;
+      }
+    });
+    
+    if(!tableBodyRows) {
+      const tableContainer = document.getElementById('attendanceTableContainer');
+      if(tableContainer) {
+        tableContainer.innerHTML = '<p style="text-align: center; padding: 20px;">Пропусков не найдено</p>';
+      }
+      return;
+    }
+    
+    const tableHTML = `
+      <div class="report-table-container">
+        <table class="misses-report-table">
+          <thead>
+            <tr>
+              <th>ФИО студента</th>
+              <th>№ группы</th>
+              <th>Дисциплина</th>
+              <th>Вид занятия, аудитория, корпус</th>
+              <th>Дата</th>
+              <th>Время</th>
+              <th>Кол-во пропущенных часов</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tableBodyRows}
+          </tbody>
+        </table>
+        <div class="attendance-actions">
+          <button class="btn btn-secondary" onclick="clearReportFilters()">Закрыть</button>
+        </div>
+      </div>
+    `;
+    
+    const tableContainer = document.getElementById('attendanceTableContainer');
+    if(tableContainer) {
+      tableContainer.innerHTML = tableHTML;
+    }
+    
+    // Показываем кнопку экспорта
+    const exportBtn = document.getElementById('exportWordBtn');
+    if(exportBtn) {
+      exportBtn.style.display = 'block';
+    }
+  } catch(error) {
+    console.error('Ошибка:', error);
+    alert('Ошибка при загрузке отчета: ' + error.message);
+  }
+}
+
+function parseDateFromString(dateStr) {
+  // Преобразует "dd.MM.yyyy" в объект Date
+  const [day, month, year] = dateStr.split('.');
+  return new Date(year, month - 1, day);
+}
+
+function refreshReportMissesIfReady() {
+  const dateFrom = document.getElementById('reportMissesDateFrom')?.value;
+  const dateTo = document.getElementById('reportMissesDateTo')?.value;
+  
+  if(dateFrom && dateTo) {
+    showReportMissesTable();
+  }
+}
+
+async function exportMissesReportToWord() {
+  const dateFromInput = document.getElementById('reportMissesDateFrom').value;
+  const dateToInput = document.getElementById('reportMissesDateTo').value;
+  const groupSelect = document.getElementById('reportMissesGroupFilter');
+  const groupId = groupSelect.value ? parseInt(groupSelect.value) : null;
+  
+  // Преобразуем даты из формата yyyy-MM-dd в dd.MM.yyyy
+  const dateFrom = formatDateToDDMMYYYY(dateFromInput);
+  const dateTo = formatDateToDDMMYYYY(dateToInput);
+  
+  try {
+    const response = await fetch('/api/v1/attendance/export-word', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        dateFrom: dateFrom,
+        dateTo: dateTo,
+        groupId: groupId
+      })
+    });
+    
+    if(!response.ok) {
+      const errorText = await response.text();
+      throw new Error(errorText);
+    }
+    
+    // Получаем blob и скачиваем файл
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `Otchet_propuski_${dateFrom.replace(/\./g, '_')}.docx`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(url);
+    
+  } catch(error) {
+    console.error('Ошибка при экспорте в Word:', error);
+    alert('Ошибка при экспорте в Word: ' + error.message);
+  }
+}
+
+function formatDateToDDMMYYYY(dateStr) {
+  // Преобразует yyyy-MM-dd в dd.MM.yyyy
+  const [year, month, day] = dateStr.split('-');
+  return `${day}.${month}.${year}`;
+}
