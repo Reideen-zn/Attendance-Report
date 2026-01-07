@@ -136,7 +136,7 @@ public class WordExportUtil {
                 rows.add(Rows.of(
                     "", "", "", "",
                     "",
-                    "Всего пропущено часов:",
+                    "Всего:",
                     String.valueOf(totalHours)
                 ).create());
             }

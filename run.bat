@@ -1,0 +1,1 @@
+java -jar target/attendance-report-1.0.0.jar

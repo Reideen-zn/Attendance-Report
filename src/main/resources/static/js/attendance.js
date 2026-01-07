@@ -666,7 +666,7 @@ async function showReportMissesTable() {
         // Строка итога для студента
         tableBodyRows += `
           <tr class="student-total">
-            <td colspan="6" style="text-align: right; font-weight: 600;">Всего пропущено часов:</td>
+            <td colspan="6" style="text-align: right; font-weight: 600;">Всего:</td>
             <td style="font-weight: 600;">${totalMissedHours}</td>
           </tr>
         `;
@@ -743,8 +743,11 @@ async function exportMissesReportToWord() {
   const groupId = groupSelect.value ? parseInt(groupSelect.value) : null;
   
   // Преобразуем даты из формата yyyy-MM-dd в dd.MM.yyyy
-  const dateFrom = formatDateToDDMMYYYY(dateFromInput);
-  const dateTo = formatDateToDDMMYYYY(dateToInput);
+  const [yearFrom, monthFrom, dayFrom] = dateFromInput.split('-');
+  const dateFrom = `${dayFrom}.${monthFrom}.${yearFrom}`;
+  
+  const [yearTo, monthTo, dayTo] = dateToInput.split('-');
+  const dateTo = `${dayTo}.${monthTo}.${yearTo}`;
   
   try {
     const response = await fetch('/api/v1/attendance/export-word', {
@@ -781,8 +784,4 @@ async function exportMissesReportToWord() {
   }
 }
 
-function formatDateToDDMMYYYY(dateStr) {
-  // Преобразует yyyy-MM-dd в dd.MM.yyyy
-  const [year, month, day] = dateStr.split('-');
-  return `${day}.${month}.${year}`;
-}
+
